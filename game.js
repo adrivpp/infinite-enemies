@@ -9,9 +9,16 @@ class Game {
   };
 
   startLoop() {
+    this.player = new Player(this.canvas, 3);
     console.log('out of loop')//prueba
     const loop = ()=> {
-      console.log('in the loop');//prueba
+
+      if(Math.random() > 0.97) {
+        const y = Math.random()*this.canvas.height; //genera de manera random una y para los enemigos
+        this.enemies.push(new Enemy(this.canvas, y)) //genera nuevos enemigos cada tanto
+      }
+
+      this.checkAllCollisions();
       //update
       this.updateCanvas();      
       //clear
@@ -25,7 +32,10 @@ class Game {
   };
 
   updateCanvas() {
-
+    this.player.upDate();
+    this.enemies.forEach((enemy) => {
+      enemy.upDate();
+    })
   };
 
   clearCanvas() {
@@ -33,7 +43,14 @@ class Game {
   };
 
   drawCanvas() {
+    this.player.draw();
+    this.enemies.forEach((enemy) => { //para cada enemigo lo pintamos
+      enemy.draw();
+    })
 
+  }
+  checkAllCollisions() {
+    this.player.checkScreen();
   }
 
 }

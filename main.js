@@ -35,9 +35,20 @@ const main = ()=> {
     canvasElement.setAttribute('width', width); 
     canvasElement.setAttribute('height', height);
 
-    setTimeout(buildGameOver,3000); //para probar si pasa a la pantalla del game over. despues se quita
+    
+
+    //setTimeout(buildGameOver,3000); //para probar si pasa a la pantalla del game over. despues se quita
     const game = new Game(canvasElement);
     game.startLoop(); //esto empezara el juego
+
+    const setPlayerDirection = (event) => {
+      if (event.code === 'ArrowUp') {
+        game.player.setDirection(-1);
+      } else if (event.code === 'ArrowDown') {
+        game.player.setDirection(1);
+      }
+    }
+    document.addEventListener('keydown', setPlayerDirection);
   };
 
   const buildGameOver = () => { //construye la pantalla del game over
